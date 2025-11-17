@@ -15,7 +15,7 @@ export default function splash(){
 
     return (
         <View style={styles.container}>
-            <Text style={styles.logo}>☁️ Day Store ☁️</Text>
+            <Text style={styles.customFont}>☁️ Day Store ☁️</Text>
         </View>
     )
 }
@@ -25,10 +25,11 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#ffb84d",
+        backgroundColor: "#48CAE1",
     },
-    logo: {
+    customFont: {
         fontSize: 32,
+        fontFamily: 'Monggle',
         color: '#fff',
         fontWeight: "bold",
     },

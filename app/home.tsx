@@ -33,15 +33,15 @@ export default function index() {
       <Calendar
         onDayPress={(day) => setSelectedDate(day.dateString)} // 선택 day 관련 정보
         markedDates={{
-          [selectedDate]: { selected: true, selectedColor: '#ffb84d' },
+          [selectedDate]: { selected: true, selectedColor: '#48CAE1' },
           ...days.reduce((acc, curr) => {
-            acc[curr.date] = { marked: true, dotColor: '#ffb84d' };
+            acc[curr.date] = { marked: true, dotColor: '#48CAE1' };
             return acc;
           }, {} as any),
         }}
         theme={{
-          todayTextColor: '#ff6b6b',
-          arrowColor: '#ffb84d',
+          todayTextColor: '#4948FF',
+          arrowColor: '#48CAE1',
         }}
       />
 
@@ -90,12 +90,13 @@ export default function index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fffaf0',
+    backgroundColor: '#F8FFFF',
     padding: 16,
     paddingTop: 60,
   },
   title: {
     fontSize: 22,
+    fontFamily: 'Monggle',
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
@@ -104,11 +105,13 @@ const styles = StyleSheet.create({
   selectedText: {
     textAlign: 'center',
     fontSize: 16,
+    fontFamily: 'Monggle2',
     marginVertical: 10,
     color: '#555',
   },
   input: {
     borderWidth: 1,
+    fontFamily: 'Monggle2',
     borderColor: '#ddd',
     borderRadius: 12,
     padding: 12,
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   button: {
-    backgroundColor: '#ffb84d',
+    backgroundColor: '#48CAE1',
     padding: 12,
     borderRadius: 10,
     alignItems: 'center',
@@ -138,14 +141,16 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
+    fontFamily: 'Monggle2',
     flexShrink: 1,
   },
   delete: {
-    color: '#ff6b6b',
-    fontWeight: 'bold',
+    color: '#4948FF',
+    fontFamily: 'Monggle2',
   },
   empty: {
     textAlign: 'center',
+    fontFamily: 'Monggle2',
     color: '#aaa',
     marginTop: 40,
   },
