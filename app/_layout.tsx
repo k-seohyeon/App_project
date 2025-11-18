@@ -20,7 +20,7 @@ export default function RootLayout() {
   
   return (
     //상단바 없애기기
-    <Stack screenOptions={{headerShown: false}}>
+    <Stack screenOptions={{animation: "fade", headerShown: false}}>
         <Stack.Screen name="index"/>
         <Stack.Screen name="home"/>
     </Stack>
