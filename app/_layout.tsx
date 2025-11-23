@@ -19,7 +19,7 @@ export default function RootLayout() {
   if(!fontsLoaded) return null;
   
   return (
-    //상단바 없애기기
+    //상단바 없애기
     <Stack screenOptions={{animation: "fade", headerShown: false}}>
         <Stack.Screen name="index"/>
         <Stack.Screen name="home"/>
