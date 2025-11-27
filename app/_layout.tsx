@@ -7,8 +7,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Monggle: require("C:/Users/jimmy/myApp/assets/images/fonts/monggle.ttf"),
-    Monggle2: require("C:/Users/jimmy/myApp/assets/images/fonts/small_monggle.ttf"),
+    Monggle: require("../assets/images/fonts/monggle.ttf"),
+    Monggle2: require("../assets/images/fonts/small_monggle.ttf"),
   });
 
   useEffect(()=>{
