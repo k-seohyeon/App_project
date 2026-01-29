@@ -1,27 +1,76 @@
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
+
+const STORAGE_KEY = 'DAYS';
 
 export default function index() {
   const [selectedDate, setSelectedDate] = useState('');
   const [text, setText] = useState('');
   const [days, setDays] = useState<{ id: string; date: string; text: string }[]>([]);
 
+  //저장 함수
+  const saveDays = async (data: {id: string; date: string; text: string}[]) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e){
+      console.log('저장 실패', e);
+    }
+  };
+
+  //불러오기 함수
+  const loadDays = async () => {
+    try {
+      const saved = await AsyncStorage.getItem(STORAGE_KEY);
+      if(saved){
+        setDays(JSON.parse(saved));
+      }
+    } catch(e){
+      console.log('불러오기 실패', e);
+    }
+  };
+
+  useEffect(() => {
+    loadDays();
+  }, []);
+
   // 일정 추가
   const addDay = () => {
     if (!selectedDate || text.trim() === '') return; // 날짜 선택 안함 또는 공백일 경우 건뛰
 
-    setDays([
+    const newDays = [
       ...days, // 지금까지 저장된 배열 + 새로운 일정 추가
       { id: Date.now().toString(), date: selectedDate, text }, 
-    ]);
+    ];
+
+    setDays(newDays);
+    saveDays(newDays);
     setText(''); // 일정 등록 후 입력칸 공백
   };
 
   // 일정 삭제
   const deleteDay = (id: string) => {
-    setDays(days.filter((item) => item.id !== id));
+    const newDays = days.filter((item) => item.id !== id);
+    setDays(newDays);
+    saveDays(newDays);
   };
+
+  const markedDates = days.reduce((acc, curr) => {
+    acc[curr.date] = {
+      marked: true,
+      dotColor: '#e0a1cb',
+    };
+    return acc;
+  }, {} as any);
+
+  if(selectedDate){
+    markedDates[selectedDate] = {
+      ...(markedDates[selectedDate] || {}),
+      selected: true,
+      selectedColor: '#48CAE1',
+    };
+  }
 
   // 현재 선택된 날짜의 일정만 필터링
   const select_day = days.filter((item) => item.date === selectedDate);
@@ -38,13 +87,7 @@ export default function index() {
         <View style={styles.calender}>
             <Calendar
               onDayPress={(day) => setSelectedDate(day.dateString)} // 선택 day 관련 정보
-              markedDates={{
-                [selectedDate]: { selected: true, selectedColor: '#48CAE1' },
-                ...days.reduce((acc, curr) => {
-                  acc[curr.date] = { marked: true, dotColor: '#48CAE1' };
-                  return acc;
-                }, {} as any),
-              }}
+              markedDates={markedDates}
               theme={{
                 todayTextColor: '#4948FF',
                 arrowColor: '#48CAE1',
